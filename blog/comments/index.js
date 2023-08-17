@@ -1,11 +1,13 @@
 const express = require("express");
 const { randomBytes } = require("crypto");
+const cors = require("cors");
 
 // Init
 const app = express();
 const PORT = 4001;
 
 app.use(express.json());
+app.use(cors());
 
 // Mocking db with in memory data
 const commentsByPostsId = {};

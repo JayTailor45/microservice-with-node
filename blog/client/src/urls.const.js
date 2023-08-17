@@ -1,0 +1,1 @@
+export const POSTS_SERVICE_HOST="http://localhost:4000";
