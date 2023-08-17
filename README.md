@@ -9,6 +9,7 @@
       - [*why?*](#why-1)
     - [Big problems with data](#big-problems-with-data)
     - [Communication strategies between services](#communication-strategies-between-services)
+    - [Event bus:](#event-bus)
 
 # Microservices
 
@@ -73,3 +74,8 @@ As mentioned above we use one database per service with microservices, and as me
         -  Bads:
            -  Data duplication
            -  Harder to understand flow of events
+
+### Event bus:
+- Receives events and publish events to listeners
+- There are many event bus avaliable such as NATs, Kafka, RabbitMQ etc ...
+- Event bus has many features which makes async communication easier

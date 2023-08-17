@@ -1,6 +1,7 @@
 const express = require("express");
 const { randomBytes } = require("crypto");
 const cors = require("cors");
+const axios = require("axios");
 
 // Init
 const app = express();
@@ -17,7 +18,7 @@ app.get("/posts/:id/comments", (req, res) => {
   res.send(commentsByPostsId[req.params.id] || []);
 });
 
-app.post("/posts/:id/comments", (req, res) => {
+app.post("/posts/:id/comments", async (req, res) => {
   const { content } = req.body;
 
   const postId = req.params.id;
@@ -29,7 +30,23 @@ app.post("/posts/:id/comments", (req, res) => {
 
   commentsByPostsId[postId] = comments;
 
+  await axios
+    .post("http://localhost:4005/events", {
+      type: "CommentCreated",
+      data: {
+        id: commentId,
+        postId,
+        content,
+      },
+    })
+    .catch(console.log);
+
   res.status(201).send(comments);
+});
+
+app.post("/events", (req, res) => {
+  console.log("Recieved event: ", req.body.type);
+  res.send({});
 });
 
 // Starting express server
