@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { POSTS_SERVICE_HOST } from "./urls.const";
+import { QUERY_SERVICE_HOST } from "./urls.const";
 import CommentCreate from "./CommentCreate";
 import CommentList from "./CommentList";
 
@@ -9,7 +9,7 @@ const PostList = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(POSTS_SERVICE_HOST + "/posts");
+      const res = await axios.get(QUERY_SERVICE_HOST + "/posts");
       setPosts(res.data);
     } catch (error) {
       console.log(error);
@@ -29,7 +29,7 @@ const PostList = () => {
       >
         <div className="card-body">
           <h3>{post.title}</h3>
-          <CommentList postId={post.id} />
+          <CommentList comments={post.comments} />
           <CommentCreate postId={post.id} />
         </div>
       </div>

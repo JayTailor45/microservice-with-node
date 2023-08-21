@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "event-bus": "npm run start --prefix ./event-bus",
+    "posts": "npm run start --prefix ./posts",
+    "comments": "npm run start --prefix ./comments",
+    "client": "npm run start --prefix ./client",
+    "query": "npm run start --prefix ./query",
+    "dev": "concurrently -n \"event-bus,posts,comments,react,query\" -c \"red,green,yellow,blue,grey\" \"npm run event-bus\" \"npm run posts\" \"npm run comments\" \"npm run client\" \"npm run query\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
