@@ -9,9 +9,10 @@ app.use(express.json());
 
 app.post("/events", async (req, res) => {
   const { type, data } = req.body;
+  console.log("Recieved event: ", req.body.type);
   switch (type) {
     case "CommentCreated":
-      const status = data.status.includes("orange") ? "rejected" : "approved";
+      const status = data.content.includes("orange") ? "rejected" : "approved";
       await axios.post("http://localhost:4005/events", {
         type: "CommentModerated",
         data: {
