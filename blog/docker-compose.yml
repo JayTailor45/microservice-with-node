@@ -1,0 +1,84 @@
+version: "3.8"
+ 
+services:
+  event-bus:
+    # Build the event-bus service
+    container_name: event-bus
+    build:
+      context: ./event-bus
+      dockerfile: ./Dockerfile
+    ports:
+      - "4005:4005"
+    network_mode: "host"
+
+  query:
+    # Build the query service
+    container_name: query
+    build:
+      context: ./query
+      dockerfile: ./Dockerfile
+    ports:
+      - "4002:4002"
+    environment:
+      - PORT=4002
+    depends_on:
+      - event-bus
+      - posts
+      - comments
+    network_mode: "host"
+
+  posts:
+    # Build the posts service
+    container_name: posts
+    build:
+      context: ./posts
+      dockerfile: ./Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+    depends_on:
+      - event-bus
+    network_mode: "host"
+
+  moderation:
+    # Build the moderation service
+    container_name: moderation
+    build:
+      context: ./moderation
+      dockerfile: ./Dockerfile
+    ports:
+      - "4003:4003"
+    environment:
+      - PORT=4003
+    depends_on:
+      - event-bus
+    network_mode: "host"
+
+  comments:
+    # Build the comments service
+    container_name: comments
+    build:
+      context: ./comments
+      dockerfile: ./Dockerfile
+    ports:
+      - "4001:4001"
+    environment:
+      - PORT=4001
+    depends_on:
+      - event-bus
+    network_mode: "host"
+
+  client:
+    # Build the client service
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    depends_on:
+      - event-bus
+    network_mode: "host"
