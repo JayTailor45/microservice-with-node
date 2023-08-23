@@ -10,6 +10,9 @@
     - [Big problems with data](#big-problems-with-data)
     - [Communication strategies between services](#communication-strategies-between-services)
     - [Event bus:](#event-bus)
+  - [Kubernetes](#kubernetes)
+    - [Kubernets glossary](#kubernets-glossary)
+    - [Kubernets config file](#kubernets-config-file)
 
 # Microservices
 
@@ -79,3 +82,15 @@ As mentioned above we use one database per service with microservices, and as me
 - Receives events and publish events to listeners
 - There are many event bus avaliable such as NATs, Kafka, RabbitMQ etc ...
 - Event bus has many features which makes async communication easier
+
+## Kubernetes
+
+### Kubernets glossary
+- `Kubernetes cluster` :- collection of nodes + a master to manage nodes
+- `Node` :- virtual machine that will run our containers
+- `Pod` :- it is smililar to a running container but it can run multiple containers
+- `Deployement` :- monitors set of pods, make sure they are running and restarts then if they crash
+- `Service` :- provides an easy-to-remember URL to access a running containers
+
+### Kubernets config file
+- It tells kubernets about the deployement, pods, and services (refered to as Objects) that we want to create
