@@ -14,6 +14,8 @@
     - [Kubernets glossary](#kubernets-glossary)
     - [Kubernets config file](#kubernets-config-file)
     - [Re-deploy updated changes to kubernets](#re-deploy-updated-changes-to-kubernets)
+    - [Networking with services](#networking-with-services)
+      - [Types of services](#types-of-services)
 
 # Microservices
 
@@ -99,3 +101,24 @@ As mentioned above we use one database per service with microservices, and as me
 
 ### Re-deploy updated changes to kubernets
 - make changes to the code, build image, push image (potentially with updated tags) and run `kubectl rollout restart deployment [depl_name]`
+
+
+### Networking with services
+Service provides networking between pods. we also use services to access pod from outside the cluster.
+
+#### Types of services
+1. Cluster IP
+   
+    Sets up easy-to-remember URL access a pod, Only expose pods in the cluster
+
+2. Node Port
+
+    Makes a pod accessible from outside of the cluster, Usually used for dev purposes
+
+3. Load Balancer
+
+    Makes pod accessible from outside of the cluster. It is right way to expose a pod to outside world.
+
+4. External Name
+
+    Redirects in-cluster request to a CNAME url.
