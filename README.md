@@ -13,6 +13,7 @@
   - [Kubernetes](#kubernetes)
     - [Kubernets glossary](#kubernets-glossary)
     - [Kubernets config file](#kubernets-config-file)
+    - [Re-deploy updated changes to kubernets](#re-deploy-updated-changes-to-kubernets)
 
 # Microservices
 
@@ -94,3 +95,7 @@ As mentioned above we use one database per service with microservices, and as me
 
 ### Kubernets config file
 - It tells kubernets about the deployement, pods, and services (refered to as Objects) that we want to create
+
+
+### Re-deploy updated changes to kubernets
+- make changes to the code, build image, push image (potentially with updated tags) and run `kubectl rollout restart deployment [depl_name]`
