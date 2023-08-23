@@ -48,5 +48,6 @@ app.post("/events", (req, res) => {
 
 // Starting express server
 app.listen(PORT, () => {
+  console.log('v20');
   console.log(`Posts service started listening on port: ${PORT}`);
 });
