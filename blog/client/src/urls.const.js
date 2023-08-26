@@ -1,3 +1,3 @@
-export const POSTS_SERVICE_HOST="http://localhost:4000";
-export const COMMENTS_SERVICE_HOST="http://localhost:4001";
-export const QUERY_SERVICE_HOST="http://localhost:4002";
+export const POSTS_SERVICE_HOST="http://posts.com";
+export const COMMENTS_SERVICE_HOST="http://posts.com";
+export const QUERY_SERVICE_HOST="http://posts.com";
