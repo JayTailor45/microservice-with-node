@@ -9,7 +9,7 @@ const PostList = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get(QUERY_SERVICE_HOST + "/posts/create");
+      const res = await axios.get(QUERY_SERVICE_HOST + "/posts");
       setPosts(res.data);
     } catch (error) {
       console.log(error);
