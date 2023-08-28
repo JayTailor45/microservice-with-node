@@ -16,6 +16,8 @@
     - [Re-deploy updated changes to kubernets](#re-deploy-updated-changes-to-kubernets)
     - [Networking with services](#networking-with-services)
       - [Types of services](#types-of-services)
+- [Projects:](#projects)
+  - [Blog app](#blog-app)
 
 # Microservices
 
@@ -122,3 +124,12 @@ Service provides networking between pods. we also use services to access pod fro
 4. External Name
 
     Redirects in-cluster request to a CNAME url.
+
+# Projects:
+
+## Blog app
+- A application created with intention to explaing how microservices works internally.
+- Learn about data duplication while using microservices
+- Learn about passing data with events (using http requests)
+- Created a app where user can create post and add comments on the post, comments can not contain `orange`, if it does then comment will be display as `Comment is rejected`
+- Best way to start the app is using `skaffold dev`
