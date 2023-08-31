@@ -16,6 +16,7 @@
     - [Re-deploy updated changes to kubernets](#re-deploy-updated-changes-to-kubernets)
     - [Networking with services](#networking-with-services)
       - [Types of services](#types-of-services)
+    - [Managing secrets](#managing-secrets)
 - [Projects:](#projects)
   - [Blog app](#blog-app)
 
@@ -124,6 +125,16 @@ Service provides networking between pods. we also use services to access pod fro
 4. External Name
 
     Redirects in-cluster request to a CNAME url.
+
+
+### Managing secrets
+
+To manage secrets in kubernets we can either create a seperate config file or run command directly to create a secret. Creating config file can expose secrets on code level so manually creating secrets is preferred here. Later we can expose env variables in the deployment configurations.
+
+Secrets can be created by following commands
+`kubectl create secret generic <jwt-secret> --from-litral=<JWT_KEY>=<secure_value>`
+or
+`minikube kubectl -- create secret generic jwt-secret --from-literal=JWT_KEY=secured`
 
 # Projects:
 
