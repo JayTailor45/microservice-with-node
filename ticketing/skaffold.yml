@@ -15,4 +15,12 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
+    - image: jaytailor45/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: '**/*.js'
   
