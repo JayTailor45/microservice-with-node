@@ -6,6 +6,7 @@ import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@tjticket/common";
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
+import { indexTicketRouter } from "./routes";
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(currentUser);
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
+app.use(indexTicketRouter);
 
 app.get("*", async () => {
   throw new NotFoundError();
