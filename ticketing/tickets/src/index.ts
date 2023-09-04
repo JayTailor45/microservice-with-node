@@ -28,10 +28,13 @@ const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error("JWT_KEY is not found");
   }
+  if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URL is not found");
+  }
 
   try {
-    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
-    console.log("Auth app connected to mongodb");
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Ticket app connected to mongodb");
   } catch (error) {
     console.error(error);
   }
