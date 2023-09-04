@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import "express-async-errors";
 import cookieSession from "cookie-session";
 
-import { errorHandler, NotFoundError } from "@tjticket/common";
+import { errorHandler, NotFoundError, currentUser } from "@tjticket/common";
+import { createTicketRouter } from "./routes/new";
 
 const app = express();
 
@@ -16,6 +17,10 @@ app.use(
     secure: true,
   })
 );
+
+app.use(currentUser);
+
+app.use(createTicketRouter);
 
 app.get("*", async () => {
   throw new NotFoundError();
