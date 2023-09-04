@@ -17,7 +17,7 @@ spec:
           image: jaytailor45/tickets:latest
           env:
             - name: MONGO_URI
-              value: 'mongodb://tickets-mogno-srv:27017/tickets'
+              value: 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY
               valueFrom: 
                 secretKeyRef:
