@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nats
-          image: nats-streaming:0.17.8
+          image: nats-streaming:0.17.0
           args:
             [
               "-p",
@@ -33,7 +33,7 @@ spec:
             ]
 
 ---
-apiVersion:
+apiVersion: v1
 kind: Service
 metadata:
   name: nats-srv
