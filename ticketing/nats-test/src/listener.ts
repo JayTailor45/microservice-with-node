@@ -8,9 +8,16 @@ const stan = nats.connect("ticketing", randomBytes(4).toString("hex"), {
 stan.on("connect", () => {
   console.log("Listener connected to nats");
 
+  stan.on("close", () => {
+    console.log("NATS connection closed");
+    process.exit();
+  });
+
+  const options = stan.subscriptionOptions().setManualAckMode(true);
   const subscription = stan.subscribe(
     "ticket:created",
-    "order-service-queue-group"
+    "order-service-queue-group",
+    options
   );
 
   subscription.on("message", (msg: Message) => {
@@ -24,6 +31,11 @@ stan.on("connect", () => {
           2
         )}`
       );
+
+      msg.ack();
     }
   });
 });
+
+process.on("SIGINT", () => stan.close());
+process.on("SIGTERM", () => stan.close());
