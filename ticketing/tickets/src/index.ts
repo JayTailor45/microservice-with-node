@@ -8,6 +8,7 @@ import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
 import { indexTicketRouter } from "./routes";
 import { updateTicketRouter } from "./routes/update";
+import { natsWrapper } from "./nats-wrapper";
 
 const app = express();
 
@@ -44,6 +45,7 @@ const start = async () => {
   }
 
   try {
+    await natsWrapper.connect("ticketing", "test", "http://nats-srv:4222");
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Ticket app connected to mongodb");
   } catch (error) {
