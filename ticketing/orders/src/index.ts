@@ -6,6 +6,11 @@ import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError, currentUser } from "@tjticket/common";
 import { natsWrapper } from "./nats-wrapper";
 
+import { newOrderRouter } from "../routes/new";
+import { showOrderRouter } from "../routes/show";
+import { deleteOrderRouter } from "../routes/delete";
+import { indexOrderRouter } from "../routes";
+
 const app = express();
 
 app.set("trust proxy", true);
@@ -19,6 +24,11 @@ app.use(
 );
 
 app.use(currentUser);
+
+app.use(indexOrderRouter);
+app.use(showOrderRouter);
+app.use(deleteOrderRouter);
+app.use(newOrderRouter);
 
 app.get("*", async () => {
   throw new NotFoundError();
@@ -58,13 +68,13 @@ const start = async () => {
     process.on("SIGTERM", () => natsWrapper.client.close());
 
     await mongoose.connect(process.env.MONGO_URI);
-    console.log("Ticket app connected to mongodb");
+    console.log("Order app connected to mongodb");
   } catch (error) {
     console.error(error);
   }
 
   app.listen(3000, () => {
-    console.log("Ticket service listening on port", 3000);
+    console.log("Order service listening on port", 3000);
   });
 };
 
