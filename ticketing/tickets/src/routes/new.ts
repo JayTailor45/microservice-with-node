@@ -27,6 +27,7 @@ router.post(
       title: ticket.title, // <- Using ticket from db instead of request body as mongoose can update value in pre or post hook
       price: ticket.price,
       userId: ticket.userId,
+      version: ticket.version,
     });
     res.status(200).send(ticket);
   }
