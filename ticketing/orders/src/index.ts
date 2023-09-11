@@ -10,6 +10,8 @@ import { newOrderRouter } from "../routes/new";
 import { showOrderRouter } from "../routes/show";
 import { deleteOrderRouter } from "../routes/delete";
 import { indexOrderRouter } from "../routes";
+import { TicketCreatedListener } from "../events/listeners/ticket-created.listener";
+import { TicketUpdatedListener } from "../events/listeners/ticket-updated.listener";
 
 const app = express();
 
@@ -66,6 +68,9 @@ const start = async () => {
     });
     process.on("SIGINT", () => natsWrapper.client.close());
     process.on("SIGTERM", () => natsWrapper.client.close());
+
+    new TicketCreatedListener(natsWrapper.client).listen();
+    new TicketUpdatedListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Order app connected to mongodb");
