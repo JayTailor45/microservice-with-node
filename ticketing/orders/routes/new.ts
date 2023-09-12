@@ -7,7 +7,6 @@ import {
 } from "@tjticket/common";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import mongoose from "mongoose";
 import { Ticket } from "../models/ticket";
 import { Order } from "../models/order";
 import { OrderCreatedPublisher } from "../events/publishers/order-created.publisher";
@@ -15,7 +14,7 @@ import { natsWrapper } from "../src/nats-wrapper";
 
 const router = express.Router();
 
-const EXPIRATION_WINDOW_SECONDS = 15 * 60;
+const EXPIRATION_WINDOW_SECONDS = 10 * 60;
 
 router.post(
   "/api/orders",
