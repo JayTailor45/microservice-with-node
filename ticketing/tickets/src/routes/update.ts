@@ -5,6 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   UnAuthorizedError,
+  BadRequestError,
 } from "@tjticket/common";
 import { Ticket } from "../models/ticket";
 import { Types as MongooseTypes } from "mongoose";
@@ -30,6 +31,10 @@ router.put(
 
     if (!ticket) {
       throw new NotFoundError();
+    }
+
+    if (ticket.orderId) {
+      throw new BadRequestError("Can not edit a reserved ticket");
     }
 
     if (ticket.userId !== req.currentUser!.id) {
