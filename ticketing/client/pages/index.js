@@ -1,8 +1,14 @@
+import Link from "next/link";
+
 const LandingPage = ({ currentUser, tickets }) => {
   const ticketList = tickets.map((ticket) => {
     return (
       <tr key={ticket.id}>
-        <td>{ticket.title}</td>
+        <td>
+          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+            {ticket.title}
+          </Link>
+        </td>
         <td>{ticket.price}</td>
         <td>{ticket.orderId ? "Unavailable" : "Available"}</td>
       </tr>
