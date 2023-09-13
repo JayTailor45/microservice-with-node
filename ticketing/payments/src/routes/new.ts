@@ -9,6 +9,7 @@ import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Order } from "../models/order";
 import { stripe } from "../stripe";
+import { Payment } from "../models/payment";
 
 const router = express.Router();
 
@@ -33,18 +34,21 @@ router.post(
       throw new BadRequestError("Cannot play for cancelled order");
     }
 
-    try {
-      await stripe.charges.create({
-        currency: "inr",
-        description: `A payment of order id ${order.id} for user ${
-          req.currentUser!.email
-        }`,
-        amount: order.price * 100, // Convert into paisa (smallest Indian currency unit)
-        source: token,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const stripeResponse = await stripe.charges.create({
+      currency: "inr",
+      description: `A payment of order id ${order.id} for user ${
+        req.currentUser!.email
+      }`,
+      amount: order.price * 100, // Convert into paisa (smallest Indian currency unit)
+      source: token,
+    });
+
+    const payment = Payment.build({
+      orderId,
+      stripeId: stripeResponse.id,
+    });
+
+    await payment.save();
 
     res.send({ success: true });
   }
