@@ -8,6 +8,7 @@ import {
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Order } from "../models/order";
+import { stripe } from "../stripe";
 
 const router = express.Router();
 
@@ -30,6 +31,19 @@ router.post(
 
     if (order.status === OrderStatus.CANCELLED) {
       throw new BadRequestError("Cannot play for cancelled order");
+    }
+
+    try {
+      await stripe.charges.create({
+        currency: "inr",
+        description: `A payment of order id ${order.id} for user ${
+          req.currentUser!.email
+        }`,
+        amount: order.price * 100, // Convert into paisa (smallest Indian currency unit)
+        source: token,
+      });
+    } catch (error) {
+      console.log(error);
     }
 
     res.send({ success: true });
