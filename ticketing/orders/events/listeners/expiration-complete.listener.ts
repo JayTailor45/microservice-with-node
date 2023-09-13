@@ -15,9 +15,13 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
   queueGroupName = queueGroupName;
 
   async onMessage(data: ExpirationCompleteEvent["data"], msg: Message) {
-    const order = await Order.findById(data.orderId).populate('ticket');
+    const order = await Order.findById(data.orderId).populate("ticket");
     if (!order) {
       throw new NotFoundError();
+    }
+
+    if (order.status === OrderStatus.CANCELLED) {
+      return msg.ack();
     }
 
     order.set({ status: OrderStatus.CANCELLED });
