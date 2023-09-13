@@ -7,6 +7,7 @@ import { errorHandler, NotFoundError, currentUser } from "@tjticket/common";
 import { natsWrapper } from "./nats-wrapper";
 import { OrderCreatedListener } from "./events/listeners/order-created-listener";
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
+import { createChargeRouter } from "./routes/new";
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(
 );
 
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.get("*", async () => {
   throw new NotFoundError();
