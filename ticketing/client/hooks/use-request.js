@@ -3,10 +3,13 @@ import { useState } from "react";
 
 const hook = ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = useState(null);
-  const doRequest = async () => {
+  const doRequest = async (props = {}) => {
     try {
-      const response = await axios[method](url, body);
-      if(onSuccess) {
+      const response = await axios[method](url, {
+        ...body,
+        ...props,
+      });
+      if (onSuccess) {
         onSuccess(response.data);
       }
       return response.data;
