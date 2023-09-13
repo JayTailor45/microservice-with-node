@@ -14,7 +14,7 @@ interface OrderDoc extends mongoose.Document {
   version: number;
   userId: string;
   price: number;
-  status: number;
+  status: string;
 }
 
 interface OrderModel extends mongoose.Model<OrderDoc> {
