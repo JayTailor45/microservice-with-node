@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Router from "next/router";
 import StripeCheckout from "react-stripe-checkout";
 import useRequest from "../../hooks/use-request";
 
@@ -12,6 +13,7 @@ const OrderShow = ({ order, currentUser }) => {
     },
     onSuccess: (payment) => {
       console.log(payment);
+      Router.push("/orders");
     },
   });
 
@@ -40,7 +42,7 @@ const OrderShow = ({ order, currentUser }) => {
         token={({ id }) => doRequest({ token: id })}
         stripeKey="pk_test_51I6KDdKyOYnccYaTfaty0BTtUPy3xCXEPW9NzFwB5HN4lLz4fWd1ksGMIgIirTMnINxCqwsslIzafB1Eez96qTPD00Qb57e302"
         currency="INR"
-        amount={order.ticket.price}
+        amount={order.ticket.price * 100}
         email={currentUser.email}
       />
       {errors}
