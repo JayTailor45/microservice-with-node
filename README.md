@@ -191,3 +191,6 @@ or
 5. Add ingress controller
    `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml`
 6. Run `skaffold dev`
+7. Add host file entry if running locally. `127.0.0.1 ticketing.dev`
+8. Visit [ticketing.dev](https:ticketing.dev)
+9. If you see ssl error then you can bypass it by typing `thisisunsafe` in the main chrome window
