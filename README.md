@@ -20,6 +20,7 @@
 - [Projects:](#projects)
   - [Blog app](#blog-app)
   - [Ticketing](#ticketing)
+    - [Steps to run](#steps-to-run)
 
 # Microservices
 
@@ -176,3 +177,17 @@ or
   - `payments` - to keep track of paid orders which is paid with stripe
   - `expiration` - to keep track of expiration of payment sessions using bulljs library along with redis
 - Aditionally app uses custom common module to share common code across different microservices
+
+### Steps to run
+> NOTE: You must push each docker images to registry and update code to use correct docker images before moving ahead
+
+>NOTE: Common lib must be published to npm registry
+1. Install [kubernetes](https://kubernetes.io/docs/tasks/tools/) or [docker engine with kubernetes](https://docs.docker.com/get-docker/)
+2. Start cluster `minikube start`
+3. Install [skaffold](https://skaffold.dev/docs/install/#standalone-binary)
+4. Set env variables
+   1. JWT secret - `kubectl create secret generic jwt-secret --from-literal=JWT_KEY=xxx`
+   2. stripe private key - `kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=sk_test_xxx`
+5. Add ingress controller
+   `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.2/deploy/static/provider/cloud/deploy.yaml`
+6. Run `skaffold dev`
